@@ -1,5 +1,6 @@
 import React from 'react';
+import RootTemplate from '../templates/Root'
 
-const RootPage = () => <h1>Root Page</h1>;
+const RootPage = () => <RootTemplate/>;
 
 export default RootPage;
