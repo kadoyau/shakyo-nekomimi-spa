@@ -1,26 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import RootPage from './pages/Root';
+import WatchPage from './pages/Watch';
+import NoMatchPage from './pages/NoMatch';
 
 const App: React.FC = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit
-        <code>src/App.tsx</code>
-        and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={RootPage} />
+      <Route path="/watch/:id" component={WatchPage} />
+      <Route component={NoMatchPage} />
+    </Switch>
+  </BrowserRouter>
 );
 
 export default App;
