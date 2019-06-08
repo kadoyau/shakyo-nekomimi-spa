@@ -1324,6 +1324,18 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/gapi.client.youtube@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/gapi.client.youtube/-/gapi.client.youtube-3.0.1.tgz#edb503164dd4a2c0b4fb666181078d22f86d8cdb"
+  integrity sha512-oZtcs/APehs4d66xWnIetaNu7RAY9Ff6FKgt4q1CTKUkZi8rM6jSVrOp2ZJSuGl86mDOD5e21qb9JhMKGNp0uQ==
+  dependencies:
+    "@types/gapi.client" "*"
+
+"@types/gapi.client@*":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/gapi.client/-/gapi.client-1.0.1.tgz#620860ae183d849e513d44b4f0422c89b8a1fc91"
+  integrity sha512-/SjoU65jvBZlDQtw12OB9YCrqKQrrAdG4YpVTH4AJaJDCOkFdGXcDA2IFTm3d2UCeQwmqM/o6tNlyjKINO6MNg==
+
 "@types/history@*":
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
