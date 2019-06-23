@@ -9,9 +9,11 @@ const RootTemplate = () => {
   const [query, setQuery] = useState('');
   // YouTube APIの検索結果を格納するStateを定義
   const [list, setList] = useState<gapi.client.youtube.SearchResult[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchList = useCallback(
     debounce(async (q: string) => {
+      setIsLoading(true);
       if (q.trim() !== '') {
         const { items } = await ApiClient.search(q);
         setQuery(q);
@@ -21,6 +23,7 @@ const RootTemplate = () => {
         // 入力テキストが空なら結果はない
         setList([]);
       }
+      setIsLoading(false);
     }, 500), // 500ms待つ
     []
   );
@@ -28,7 +31,7 @@ const RootTemplate = () => {
     <>
       <SearchBar onChange={searchList} />
       <div className={styles.content}>
-        <SearchList query={query} list={list} />
+        <SearchList isLoading={isLoading} query={query} list={list} />
       </div>
     </>
   );

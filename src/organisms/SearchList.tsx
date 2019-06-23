@@ -1,18 +1,28 @@
 import { List, ListItem, ListItemText, ListSubheader } from '@material-ui/core';
 import React, { useCallback } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 import styles from './SearchList.module.css';
 
 interface Props extends RouteComponentProps {
+  isLoading: boolean;
   query: string;
   list: gapi.client.youtube.SearchResult[];
 }
 
 const SearchList = (props: Props) => {
-  const { query, list, history } = props;
+  const { isLoading, query, list, history } = props;
   const createHandleClick = useCallback((videoId: string) => {
     return () => history.push(`/watch/${videoId}`);
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className={styles.content}>
+        <ReactLoading type="bubbles" color="#999" />
+      </div>
+    );
+  }
 
   return (
     <List
