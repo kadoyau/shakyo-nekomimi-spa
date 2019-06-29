@@ -1,17 +1,19 @@
-import { List, ListItem, ListItemText, ListSubheader } from '@material-ui/core';
+import {List, ListItem, ListItemText, ListSubheader, Typography} from '@material-ui/core';
 import React, { useCallback } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import styles from './SearchList.module.css';
+import ErrorIcon from '@material-ui/icons/Error';
 
 interface Props extends RouteComponentProps {
   isLoading: boolean;
+  isError: boolean;
   query: string;
   list: gapi.client.youtube.SearchResult[];
 }
 
 const SearchList = (props: Props) => {
-  const { isLoading, query, list, history } = props;
+  const { isLoading, isError, query, list, history } = props;
   const createHandleClick = useCallback((videoId: string) => {
     return () => history.push(`/watch/${videoId}`);
   }, []);
@@ -22,6 +24,15 @@ const SearchList = (props: Props) => {
         <ReactLoading type="bubbles" color="#999" />
       </div>
     );
+  }
+
+  if (isError) {
+    return (
+        <div className={styles.content}>
+            <ErrorIcon fontSize="large" />
+            <Typography variant="body1">動画リストの取得に失敗しました</Typography>
+        </div>
+        );
   }
 
   return (
