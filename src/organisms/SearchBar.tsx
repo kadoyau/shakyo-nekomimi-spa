@@ -1,19 +1,26 @@
 import { AppBar, InputBase, Toolbar, withStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import styles from './SearchBar.module.css';
 
 interface Props {
+  defaultValue: string;
   onChange: (value: string) => void;
 }
 
 const SearchBar = (props: Props) => {
-  const { onChange } = props;
+  const { defaultValue, onChange } = props;
+  const [value, setValue] = useState(defaultValue);
+
   // function componentで関数定義をする場合はuseCallbackを使うと、
   // メモ化されるのでレンダリングのために再定義されるのを防げる
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(event.target.value);
+      const { target } = event;
+      // ブラウザバックしても表示できるように保存
+      setValue(target.value);
+      // onChangeのメソッドを呼ぶ
+      onChange(target.value);
     },
     []
   );
@@ -22,7 +29,12 @@ const SearchBar = (props: Props) => {
       <Toolbar variant="dense">
         <div className={styles.search}>
           <SearchIcon fontSize="small" />
-          <StyledInputBase placeholder="search..." onChange={handleChange} />
+          <StyledInputBase
+            placeholder="search..."
+            value={value}
+            // see https://material-ui.com/api/input-base/#props
+            onChange={handleChange}
+          />
         </div>
       </Toolbar>
     </AppBar>

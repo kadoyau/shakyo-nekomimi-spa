@@ -37,7 +37,7 @@ const RootTemplate = () => {
   );
   return (
     <>
-      <SearchBar onChange={searchList} />
+      <SearchBar onChange={searchList} defaultValue={searchResult.query} />
       <div className={styles.content}>
         <SearchList
           isLoading={isLoading}
