@@ -35,6 +35,15 @@ const SearchList = (props: Props) => {
         );
   }
 
+        if (list.length === 0) {
+            return (
+                <div className={styles.content}>
+                    <ErrorIcon fontSize="large" />
+                    <Typography variant="body1">動画が見つかりませんでした</Typography>
+                </div>
+            );
+        }
+
   return (
     <List
       subheader={<ListSubheader>{`${query}の検索結果`}</ListSubheader>}
