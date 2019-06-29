@@ -1,9 +1,15 @@
-import {List, ListItem, ListItemText, ListSubheader, Typography} from '@material-ui/core';
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListSubheader,
+  Typography
+} from '@material-ui/core';
 import React, { useCallback } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import styles from './SearchList.module.css';
 import ErrorIcon from '@material-ui/icons/Error';
+import styles from './SearchList.module.css';
 
 interface Props extends RouteComponentProps {
   isLoading: boolean;
@@ -28,21 +34,21 @@ const SearchList = (props: Props) => {
 
   if (isError) {
     return (
-        <div className={styles.content}>
-            <ErrorIcon fontSize="large" />
-            <Typography variant="body1">動画リストの取得に失敗しました</Typography>
-        </div>
-        );
+      <div className={styles.content}>
+        <ErrorIcon fontSize="large" />
+        <Typography variant="body1">動画リストの取得に失敗しました</Typography>
+      </div>
+    );
   }
 
-        if (list.length === 0) {
-            return (
-                <div className={styles.content}>
-                    <ErrorIcon fontSize="large" />
-                    <Typography variant="body1">動画が見つかりませんでした</Typography>
-                </div>
-            );
-        }
+  if (list.length === 0) {
+    return (
+      <div className={styles.content}>
+        <ErrorIcon fontSize="large" />
+        <Typography variant="body1">動画が見つかりませんでした</Typography>
+      </div>
+    );
+  }
 
   return (
     <List
