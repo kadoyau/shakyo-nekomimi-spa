@@ -1,16 +1,16 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import debounce from 'lodash.debounce';
 import SearchBar from '../organisms/SearchBar';
 import styles from './Root.module.css';
 import SearchList from '../organisms/SearchList';
 import ApiClient from '../utils/ApiClient';
+import { AppContext } from '../App';
 
 const RootTemplate = () => {
-  const [query, setQuery] = useState('');
   // YouTube APIの検索結果を格納するStateを定義
-  const [list, setList] = useState<gapi.client.youtube.SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const { searchResult, setSearchResult } = useContext(AppContext);
 
   const searchList = useCallback(
     debounce(async (q: string) => {
@@ -21,11 +21,10 @@ const RootTemplate = () => {
 
         if (q.trim() !== '') {
           const { items } = await ApiClient.search(q);
-          setQuery(q);
-          setList(items!);
+          setSearchResult({ query: q, items: items! });
         } else {
           // 入力テキストが空なら結果はない
-          setList([]);
+          setSearchResult({ query: '', items: [] });
         }
       } catch (e) {
         setIsError(true);
@@ -43,8 +42,8 @@ const RootTemplate = () => {
         <SearchList
           isLoading={isLoading}
           isError={isError}
-          query={query}
-          list={list}
+          query={searchResult.query}
+          list={searchResult.items}
         />
       </div>
     </>
