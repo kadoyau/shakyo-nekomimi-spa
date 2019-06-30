@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import RootPage from './pages/Root';
 import WatchPage from './pages/Watch';
 import NoMatchPage from './pages/NoMatch';
+import 'lazysizes'
 
 interface SearchResult {
   query: string;

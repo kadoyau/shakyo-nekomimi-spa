@@ -65,8 +65,8 @@ const SearchList = (props: Props) => {
             divider
           >
             <img
-              className={styles.thumbnail}
-              src={snippet!.thumbnails!.default!.url!}
+              className={`lazyload ${styles.thumbnail}`}
+              data-src={snippet!.thumbnails!.default!.url!}
               alt={snippet!.title}
             />
             <ListItemText primary={snippet!.title} />
