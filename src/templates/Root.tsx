@@ -17,15 +17,15 @@ const RootTemplate = () => {
       try {
         // アイコンの表示を初期化
         setIsError(false);
-        setIsLoading(true);
-
-        if (q.trim() !== '') {
-          const { items } = await ApiClient.search(q);
-          setSearchResult({ query: q, items: items! });
-        } else {
-          // 入力テキストが空なら結果はない
+        // テキストが空ならローディングしない
+        if (q.trim() === '') {
+          // 入力テキストが空ならローディングしない
           setSearchResult({ query: '', items: [] });
+          return;
         }
+        setIsLoading(true);
+        const { items } = await ApiClient.search(q);
+        setSearchResult({ query: q, items: items! });
       } catch (e) {
         setIsError(true);
       } finally {
