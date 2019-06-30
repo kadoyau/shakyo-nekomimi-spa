@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, {lazy,Suspense, useState} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import RootPage from './pages/Root';
-import WatchPage from './pages/Watch';
-import NoMatchPage from './pages/NoMatch';
 import 'lazysizes'
+
+
+const LazyRootPage = lazy(()=> import('./pages/Root'));
+const LazyWatchPage = lazy(()=> import('./pages/Watch'));
+const LazyNoMatchPage = lazy(()=> import('./pages/NoMatch'));
 
 interface SearchResult {
   query: string;
@@ -25,11 +27,13 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <AppContext.Provider value={{ searchResult, setSearchResult }}>
+        <Suspense fallback={<div>loading...</div>}>
         <Switch>
-          <Route exact path="/" component={RootPage} />
-          <Route path="/watch/:id" component={WatchPage} />
-          <Route component={NoMatchPage} />
+          <Route exact path="/" component={LazyRootPage} />
+          <Route path="/watch/:id" component={LazyWatchPage} />
+          <Route component={LazyNoMatchPage} />
         </Switch>
+        </Suspense>
       </AppContext.Provider>
     </BrowserRouter>
   );
